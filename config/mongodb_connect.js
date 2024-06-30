@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
-mongoose.connect("mongodb://127.0.0.1/Clinic",{});
+mongoose.connect("mongodb://127.0.0.1/Clinic",{
+    useNewUrlParser: true, 
+    useUnifiedTopology: true,
+    family: 4,
+});
 const usersSchema = {
     name:String,
     email:String,
