@@ -11,6 +11,7 @@ const corsConfig ={
   credential :true,
   methods: ["POST","PUT","GET","DELETE"],
  }
+app.options("",cors(corsConfig));
 app.use(cors(corsConfig));
 app.use(express.json());
 app.use('/users',require('./routes/useroutes'))
