@@ -6,7 +6,12 @@ const path = require('path');
 const mongo = require('./config/mongodb_connect');
 const users = mongo.users;
 const multer = require('multer');
-app.use(cors());
+const corsConfig ={
+  origin:"*",
+  credential :true,
+  methods: ["POST","PUT","GET","DELETE"],
+ }
+app.use(cors(corsConfig));
 app.use(express.json());
 app.use('/users',require('./routes/useroutes'))
 app.use('/appointments',require('./routes/appointmentroute'))
