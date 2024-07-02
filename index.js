@@ -2,11 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const port = 8080;
+app.use(cors());
 const path = require('path');
 const mongo = require('./config/mongodb_connect');
 const users = mongo.users;
 const multer = require('multer');
-app.use(cors());
 app.use(express.json());
 app.use('/users',require('./routes/useroutes'))
 app.use('/appointments',require('./routes/appointmentroute'))
