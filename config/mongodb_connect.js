@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect("mongodb://0.0.0.0:27017/Clinic?directConnection=true",{family:6,});
+mongoose.connect("mongodb+srv://vinayp9399:mechanic%4093@vinaycluster.03uocxi.mongodb.net/onlineclinic?retryWrites=true&w=majority&appName=VinayCluster",{family:6,});
 const usersSchema = {
     name:String,
     email:String,
