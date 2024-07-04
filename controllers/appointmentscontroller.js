@@ -49,5 +49,8 @@ exports.findappointments = async(request, response) =>{
 exports.findpatient = async(request, response) =>{
    
     const result = await appointments.findOne({doctorid:request.params.doctorid, phoneno:request.params.phoneno})
-    response.send(JSON.stringify({'error':'','message':result}))
+    if(!result){
+        response.send(JSON.stringify({'error':'','message':'no record found'}))
+    }
+    else{response.send(JSON.stringify({'error':'','message':result}))}
 }
