@@ -42,7 +42,10 @@ exports.login = async(request,response)=>{
     let result = await users.findOne({phoneno:request.body.phoneno})
     //console.log(hashPassword)
     //console.log(result.password);
-    if(Password != result.password){
+    if(!result){
+        response.send(JSON.stringify({'error':'','message':'phoneno or password does not match'}))
+    }
+    else if(Password != result.password){
         response.send(JSON.stringify({'error':'','message':'phoneno or password does not match'}))
     }else{
         response.send(JSON.stringify({'error':'','message':result}))
