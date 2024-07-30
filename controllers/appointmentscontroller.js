@@ -33,7 +33,7 @@ exports.deleteappointment = async (request,response) =>{
 exports.updateappointment = async (request,response) =>{
     // let users_id = {users_id:request.params.id}
     let appointmentData =  {name:request.body.name,age:request.body.age,
-        gender:request.body.gender,phoneno:request.body.phoneno,symptoms:request.body.symptoms,prescription:request.body.prescription}
+        gender:request.body.gender,phoneno:request.body.phoneno,symptoms:request.body.symptoms,prescription:request.body.prescription,date:request.body.date,time:request.body.time}
 
     const result = await appointments.findByIdAndUpdate(request.params.id,appointmentData)
     response.send(JSON.stringify({'error':'','message':'User updated sucessfully'}))
