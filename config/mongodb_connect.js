@@ -23,6 +23,8 @@ const appointmentsSchema = {
     phoneno:String,
     symptoms:String,
     prescription:String,
+    date:String,
+    time:String,
 }
 const users = mongoose.model("Users",usersSchema);
 const appointments = mongoose.model("Appointments",appointmentsSchema);
