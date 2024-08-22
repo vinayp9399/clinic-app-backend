@@ -25,6 +25,7 @@ const appointmentsSchema = {
     prescription:String,
     date:String,
     time:String,
+    status:String,
 }
 const users = mongoose.model("Users",usersSchema);
 const appointments = mongoose.model("Appointments",appointmentsSchema);
