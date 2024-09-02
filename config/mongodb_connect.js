@@ -26,6 +26,7 @@ const appointmentsSchema = {
     date:String,
     time:String,
     status:String,
+    followupdate:String,
 }
 const users = mongoose.model("Users",usersSchema);
 const appointments = mongoose.model("Appointments",appointmentsSchema);

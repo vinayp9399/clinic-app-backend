@@ -59,3 +59,11 @@ exports.findstatus = async(request, response) =>{
     const result = await appointments.find({doctorid:request.params.doctorid, status:"not visited"})
     response.send(JSON.stringify({'error':'','message':result}))
 }
+
+// exports.docfollowups = async(request, response) =>{
+   
+
+
+//     const result = await appointments.find({doctorid:request.params.doctorid, followupdate:})
+//     response.send(JSON.stringify({'error':'','message':result}))
+// }
