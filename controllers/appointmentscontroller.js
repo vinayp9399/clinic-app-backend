@@ -60,10 +60,8 @@ exports.findstatus = async(request, response) =>{
     response.send(JSON.stringify({'error':'','message':result}))
 }
 
-// exports.docfollowups = async(request, response) =>{
-   
-
-
-//     const result = await appointments.find({doctorid:request.params.doctorid, followupdate:})
-//     response.send(JSON.stringify({'error':'','message':result}))
-// }
+exports.docfollowups = async(request, response) =>{
+    let date = new Date;
+    const result = await appointments.find({doctorid:request.params.doctorid, followupdate:date})
+    response.send(JSON.stringify({'error':'','message':result}))
+}
