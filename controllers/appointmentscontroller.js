@@ -62,7 +62,7 @@ exports.findstatus = async(request, response) =>{
 
 exports.docfollowups = async(request, response) =>{
     let date = new Date;
-    let datefollow = String(date).slice(0,15)
+    let datefollow = `${date.getFullYear()}-0${date.getMonth()+1}-0${date.getDate()}`
     const result = await appointments.find({doctorid:request.params.doctorid, followupdate:datefollow})
     response.send(JSON.stringify({'error':'','message':result}))
 }
