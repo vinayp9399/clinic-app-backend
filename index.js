@@ -8,6 +8,9 @@ const mongo = require('./config/mongodb_connect');
 const users = mongo.users;
 const multer = require('multer');
 app.use(express.json());
+
+const chatbotroute = require('./routes/chatbotroute');
+app.use('/chatbot', chatbotroute);
 app.use('/users',require('./routes/useroutes'))
 app.use('/appointments',require('./routes/appointmentroute'))
 app.use(express.static(path.join(__dirname, 'public')));
