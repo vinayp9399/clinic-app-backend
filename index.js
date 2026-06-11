@@ -9,8 +9,10 @@ const users = mongo.users;
 const multer = require('multer');
 app.use(express.json());
 
+const verifyToken = require('./middleware/auth');
+
 const chatbotroute = require('./routes/chatbotroute');
-app.use('/chatbot', chatbotroute);
+app.use('/chatbot', verifyToken, chatbotroute);
 app.use('/users',require('./routes/useroutes'))
 app.use('/appointments',require('./routes/appointmentroute'))
 app.use(express.static(path.join(__dirname, 'public')));
@@ -30,7 +32,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-app.put('/image/:id', upload.single('image'),  async function (req, res) {
+app.put('/image/:id', verifyToken, upload.single('image'),  async function (req, res) {
   let imagepath = req.file.path.slice(7,);
   
   let imageData =  {image:imagepath};

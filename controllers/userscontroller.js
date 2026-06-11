@@ -1,5 +1,9 @@
 const mongo = require('../config/mongodb_connect');
 const users = mongo.users;
+const jwt = require('jsonwebtoken');
+
+const ACCESS_SECRET = process.env.ACCESS_SECRET || 'access_secret_key';
+const REFRESH_SECRET = process.env.REFRESH_SECRET || 'refresh_secret_key';
 // const multer = require('multer');
 //const users = require('../config/mongodb_connect');
 
@@ -40,16 +44,39 @@ exports.login = async(request,response)=>{
    
     const Password = request.body.password;
     let result = await users.findOne({phoneno:request.body.phoneno})
-    //console.log(hashPassword)
-    //console.log(result.password);
+
     if(!result){
-        response.send(JSON.stringify({'error':'','message':'phoneno or password does not match'}))
+        return response.send(JSON.stringify({'error':'','message':'phoneno or password does not match'}))
     }
-    else if(Password != result.password){
-        response.send(JSON.stringify({'error':'','message':'phoneno or password does not match'}))
-    }else{
-        response.send(JSON.stringify({'error':'','message':result}))
+    if(Password != result.password){
+        return response.send(JSON.stringify({'error':'','message':'phoneno or password does not match'}))
     }
+
+    const payload = { id: result._id, usertype: result.usertype };
+    const accessToken = jwt.sign(payload, ACCESS_SECRET, { expiresIn: '15m' });
+    const refreshToken = jwt.sign(payload, REFRESH_SECRET, { expiresIn: '7d' });
+
+    response.send(JSON.stringify({
+        error: '',
+        message: result,
+        accessToken,
+        refreshToken
+    }))
+}
+
+exports.refreshToken = (request, response) => {
+    const { refreshToken } = request.body;
+    if (!refreshToken) {
+        return response.status(401).json({ error: 'Refresh token missing' });
+    }
+    jwt.verify(refreshToken, REFRESH_SECRET, (err, user) => {
+        if (err) {
+            return response.status(403).json({ error: 'Invalid or expired refresh token' });
+        }
+        const payload = { id: user.id, usertype: user.usertype };
+        const accessToken = jwt.sign(payload, ACCESS_SECRET, { expiresIn: '15m' });
+        response.json({ accessToken });
+    });
 }
 
 exports.deleteuser = async (request,response) =>{
